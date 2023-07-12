@@ -5,7 +5,6 @@ import os
 
 token = os.environ['token']
 OpenWeather_token = os.environ['OpenWeather_token']
-text_to_voice_url = 'https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize'
 ApiKey = os.environ['ApiKey']
 Auth = f'Api-Key {ApiKey}'
 Auth_Header = {"Authorization": Auth}
