@@ -3,21 +3,12 @@ import json
 import datetime
 import os
 
-
 token = os.environ['token']
 OpenWeather_token = os.environ['OpenWeather_token']
-YandexSpeechKit_token = os.environ['YandexSpeechKit_token']
 text_to_voice_url = 'https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize'
-yandex_storage_token = os.environ['yandex_storage_token']
 ApiKey = os.environ['ApiKey']
-bucket = 'https://storage.yandexcloud.net/itiscl-spr23-07-weather/'
 Auth = f'Api-Key {ApiKey}'
-Auth_Header = {'Authorization': Auth}
-BearerToken = os.environ['BearerToken']
-BearerTokenHead = f'Bearer {BearerToken}'
-BearerHeader = {'Authorization': BearerTokenHead}
-folderId = os.environ['folderId']
-folderId = f'{folderId}'
+Auth_Header = {"Authorization": Auth}
 
 
 def handler(event, context):
@@ -178,7 +169,6 @@ def voice_to_text(file_id):
                           data = audio)
     if text.ok:
         result = text.json()['result']
-
         return result
     else:
         return 'Ошибка'
@@ -193,15 +183,10 @@ def text_to_voice(text):
         "emotion": "good",
         "speed": "1.0",
         "format": "oggopus",
-        "folderId": folderId
     }
 
-    response = requests.post(url, headers=BearerHeader, data=data)
-
-    if response.status_code == 200:
-        return response.content 
-    else:
-        return None  
+    response = requests.post(url, headers=Auth_Header, params=data)
+    return response.content 
 
 
 weather_translations = {
